@@ -18,6 +18,11 @@ public class MainActivity extends Activity {
         setTitle("Splash");
         intent = new Intent(this, Welcome.class);
 
+        if (getIntent().getBooleanExtra("EXIT", false))
+        {
+            finish();
+        }
+
 
     }
 

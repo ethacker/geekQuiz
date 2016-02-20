@@ -2,6 +2,7 @@ package com.example.group21.homework3;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 /**
  * Created by ethan on 2/19/16.
@@ -27,15 +28,20 @@ public class Questions implements Parcelable {
 
     public Questions(String s){
 
+        Log.d("questionsArea", "New Question");
+
         String [] questionParts = s.split(";");
 
         questionLength = questionParts.length;
         questionID = Integer.valueOf(questionParts[0]);
+        Log.d("questionsArea", "QuestionID"+questionID);
         questionText = questionParts[1];
+        Log.d("questionsArea", "QuestionText"+questionText);
 
         if(questionParts[questionLength-1].startsWith("http")){
             hasImage = true;
-        }
+            Log.d("questionsArea", "Has Image URL");
+        }else{hasImage=false;}
 
         if(hasImage) {
             questionOptions = new String[questionLength-3];
@@ -46,14 +52,16 @@ public class Questions implements Parcelable {
 
             }
             numOptions = questionOptions.length;
+            Log.d("questionsArea", "NumOptions"+numOptions);
             imageURL = questionParts[questionLength-1];
+            Log.d("questionsArea", "URL"+imageURL);
         }else{
 
             questionOptions = new String[questionLength-2];
 
             for(int i=2;i<questionLength;i++){
 
-                questionOptions[i=2] = questionParts[i];
+                questionOptions[i-2] = questionParts[i];
             }
             numOptions = questionOptions.length;
             imageURL = null;
